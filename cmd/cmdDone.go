@@ -1,6 +1,3 @@
-/*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-*/
 package cmd
 
 import (
@@ -12,12 +9,15 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// cmdDoneCmd represents the cmdDone command
 var cmdDoneCmd = &cobra.Command{
-	Use:   "done",
+	Use:   "done [command]",
 	Short: "Marcar una tarea como completada.",
 
 	Run: func(cmd *cobra.Command, args []string) {
+		if len(args) == 0 {
+			fmt.Println("\n\tDebes proporcionar un Id para cambiar el estado de la tarea. Ej: zas done 2")
+			os.Exit(1)
+		}
 		fmt.Println("")
 		myTasks, _ := models.ReadFile()
 		index, err := strconv.Atoi(args[0])
@@ -38,14 +38,4 @@ var cmdDoneCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(cmdDoneCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// cmdDoneCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// cmdDoneCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

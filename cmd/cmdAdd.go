@@ -19,6 +19,7 @@ var cmdAddCmd = &cobra.Command{
 	Short: "Agregar una tarea a la lista.",
 
 	Run: func(cmd *cobra.Command, args []string) {
+
 		fmt.Println("\nInserta una nueva tarea")
 		fmt.Print("-> ")
 
