@@ -28,17 +28,20 @@ func Clean() error {
 func SaveFile(task []ToDoList) {
 	file, errs := os.Create("myfile.txt")
 	if errs != nil {
-		fmt.Println("Failed to create file:", errs)
+		fmt.Println("Error para crear el archivo:", errs)
 		return
 	}
 	defer file.Close()
 
-	jsonData, _ := json.Marshal(task)
+	jsonData, err := json.Marshal(task)
 	str := string(jsonData)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	_, errs = file.WriteString(fmt.Sprintf("%+v", str))
 	if errs != nil {
-		fmt.Println("Failed to write to file:", errs)
+		fmt.Println("Error para escribir el archivo:", errs)
 		return
 	}
 
